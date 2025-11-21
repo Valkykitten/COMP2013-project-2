@@ -14,7 +14,8 @@ export default function CartContainer({
           {console.log(cartList)}
           {cartList.map((product) => (
             <CartCard
-              key={product.id}
+              key={product._id}
+              id={product._id}
               {...product}
               handleRemoveFromCart={handleRemoveFromCart}
               handleAddQuantity={handleAddQuantity}
@@ -29,10 +30,14 @@ export default function CartContainer({
               Checkout:{" $"}
               {cartList
                 .reduce(
-                  (total, item) =>
-                    total +
-                    parseFloat(item.price.replace("$", "")) * item.quantity,
-                  0
+                  (total, item) => {
+                    const rawPrice = item.price ?? "0";
+                    const numericPrice = parseFloat(
+                      typeof rawPrice === "string" ? rawPrice.replace("$", "") : rawPrice
+                    );
+                    const quantity = item.quantity ?? 0;
+                    return total + numericPrice * quantity;
+                  }, 0
                 )
                 .toFixed(2)}
             </button>

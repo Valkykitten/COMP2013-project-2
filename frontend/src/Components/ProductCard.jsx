@@ -9,9 +9,14 @@ export default function ProductCard({
   handleAddQuantity,
   handleRemoveQuantity,
   handleAddToCart,
-  id,
+  handleOnDelete,
+  handleOnEdit,
+  _id,
 }) {
+  //console.log("ProductCard props:", { productName, brand, image, price });
+
   return (
+    
     <div className="ProductCard">
       <h3>{productName}</h3>
       <img src={image} alt="" />
@@ -30,11 +35,13 @@ export default function ProductCard({
         handleAddQuantity={handleAddQuantity}
         productQuantity={productQuantity}
         handleRemoveQuantity={handleRemoveQuantity}
-        id={id}
+        id={_id}
         mode="product"
       />
       <h3>{price}</h3>
-      <button onClick={() => handleAddToCart(id)}>Add to Cart</button>
+      <button onClick={() => handleAddToCart(_id)}>Add to Cart</button>
+      <button onClick={() => handleOnEdit(_id)}>Edit</button>
+      <button onClick={() => handleOnDelete(_id)}>Delete</button>
     </div>
   );
 }
